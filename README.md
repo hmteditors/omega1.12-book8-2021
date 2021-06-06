@@ -20,5 +20,6 @@ Book 8 begins on [folio 66 recto](http://www.homermultitext.org/ict2/?urn=urn:ci
 
 ## Previous publications
 
-Partially published in Erbse.
+The Ω 1.12 scholia have never been completely published.  A selection of them were published by Hartmut Erbse in his *Scholia Vetera in Iliadem*;  the text of Erbse's edition has been made available by the WordHoard project.  The book 8 selections are included in the `reference` directory in a readable HTML format.
+
 
