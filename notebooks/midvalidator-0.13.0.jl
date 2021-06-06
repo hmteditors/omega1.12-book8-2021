@@ -201,33 +201,6 @@ function formatToken(ortho, s)
 	end
 end
 
-# ╔═╡ f7b6b1ce-eb2b-456f-8102-2d8fba838382
-# Compose an HTML string for a row of tokens, highlighting tokens
-# that are not valid in the configured orthography
-function tokenizeRow(row, editorsrepo)
-    textconfig = citation_df(editorsrepo)
-
-
-	reduced = baseurn(row.passage)
-	citation = "<b>" * passagecomponent(reduced)  * "</b> "
-	ortho = orthographyforurn(textconfig, reduced)
-	
-	if ortho === nothing
-		"<p class='warn'>⚠️  $(citation). No text configured</p>"
-	else
-	
-		txt = normednodetext(editorsrepo, row.passage)
-		
-		tokens = ortho.tokenizer(txt)
-		highlighted = map(t -> formatToken(ortho, t.text), tokens)
-		html = join(highlighted, " ")
-		
-		#"<p>$(citation) $(html)</p>"
-		"<p><b>$(reduced.urn)</b> $(html)</p>"
-	
-	end
-end
-
 # ╔═╡ 3dd9b96b-8bca-4d5d-98dc-a54e00c75030
 css = html"""
 <style>
@@ -322,23 +295,34 @@ md"""###  Choose a surface to verify
 $(@bind surface Select(surfacemenu(editorsrepo())))
 """
 
-# ╔═╡ 4f4c5fd2-5219-4dc1-bdb2-9e48b3857966
-begin
+# ╔═╡ 3cb683e2-5350-4262-b693-0cddee340254
+# Compose HTML to display compliance with configured orthography
+function orthography()
 	if isempty(surface)
 		md""
 	else
+	
+		textconfig = citation_df(editorsrepo())
 		sdse = EditorsRepo.surfaceDse(editorsrepo(), Cite2Urn(surface))
-		htmlout = []
-		try 
-			for r in eachrow(sdse)
-				push!(htmlout, tokenizeRow(r, editorsrepo()))
+		
+		htmlrows = []
+		for row in eachrow(sdse)
+			tidy = EditorsRepo.baseurn(row.passage)
+			ortho = orthographyforurn(textconfig, tidy)
+			chunks = normednodetext(editorsrepo(), row.passage) |> split
+			html = []
+			for chunk in chunks
+				push!(html, formatToken(ortho, chunk))
 			end
-		catch  e
-			md"Error. $(e)"
+			htmlrow =  string("<p><b>$(tidy.urn)</b> ", join(html," "), "</p>")
+			push!(htmlrows,htmlrow)
 		end
-		HTML(join(htmlout,"\n"))
+		HTML(join(htmlrows,"\n"))
 	end
 end
+
+# ╔═╡ 3b04a423-6d0e-4221-8540-ad457d0bb65e
+orthography()
 
 # ╔═╡ 080b744e-8f14-406d-bdd2-fbcd3c1ec753
 # Base URL for an ImageCitationTool
@@ -396,7 +380,7 @@ end
 # ╔═╡ 59fbd3de-ea0e-4b96-800c-d5d8a7272922
 # Compose markdown for one row of display interleaving citable
 # text passage and indexed image.
-function mdForDseRow(row::DataFrameRow)
+function accuracyView(row::DataFrameRow)
 	citation = "**" * passagecomponent(row.passage)  * "** "
 
 	
@@ -427,7 +411,7 @@ begin
 		
 		try
 			for r in eachrow(surfDse)
-				push!(cellout, mdForDseRow(r))
+				push!(cellout, accuracyView(r))
 			end
 
 		catch e
@@ -454,15 +438,15 @@ end
 # ╟─ad541819-7d4f-4812-8476-8a307c5c1f87
 # ╟─73839e47-8199-4755-8d55-362185907c45
 # ╟─3dd88640-e31f-4400-9c34-2adc2cd4c532
-# ╟─4f4c5fd2-5219-4dc1-bdb2-9e48b3857966
+# ╟─3b04a423-6d0e-4221-8540-ad457d0bb65e
 # ╟─ea1b6e21-7625-4f8f-a345-8e96449c0757
 # ╟─fd401bd7-38e5-44b5-8131-dbe5eb4fe41b
 # ╟─066b9181-9d41-4013-81b2-bcc37878ab68
 # ╟─5cba9a9c-74cc-4363-a1ff-026b7b3999ea
 # ╟─71d7a180-5742-415c-9013-d3d1c0ca920c
 # ╟─59fbd3de-ea0e-4b96-800c-d5d8a7272922
+# ╟─3cb683e2-5350-4262-b693-0cddee340254
 # ╟─1814e3b1-8711-4afd-9987-a41d85fd56d9
-# ╟─f7b6b1ce-eb2b-456f-8102-2d8fba838382
 # ╟─3dd9b96b-8bca-4d5d-98dc-a54e00c75030
 # ╟─ec0f3c61-cf3b-4e4c-8419-176626a0888c
 # ╟─43734e4f-2efc-4f12-81ac-bce7bf7ada0a
