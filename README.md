@@ -5,8 +5,7 @@
 
 Book 8 begins on [folio 66 recto](http://www.homermultitext.org/ict2/?urn=urn:cite2:hmt:e4img.2017a:e4_486).
 
-
-
+[![folio 66 recto](http://www.homermultitext.org/iipsrv?OBJ=IIP,1.0&FIF=/project/homer/pyramidal/deepzoom/hmt/e4img/2017a/e4_486.tif&RGN=0.04861,0.06019,0.9501,0.8256&WID=200&CVT=JPEG)](http://www.homermultitext.org/ict2/?urn=urn:cite2:hmt:e4img.2017a:e4_486)
 
 ## URNs: quick reference
 

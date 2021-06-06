@@ -1,4 +1,6 @@
-# Simulate a validating notebook.
+# To simulate the main computation that takes place
+# in an MID validating notebook, run this script from
+# the root directory of this repository.
 using EditorsRepo
 using CitableText
 using CitableObject
