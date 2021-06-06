@@ -20,15 +20,15 @@
       <text n="ε4">
         <body>
 
-          <div n="66ρ_1" type="scholion">
+          <div n="66r_1" type="scholion">
             <div n="lemma">
-               <p/>
+               <p>κροκόπεπλος</p>
             </div>
             <div n="ref">
-               <p>URN including subreference string</p>
+               <p>urn:cts:greekLit:tlg0012.tlg001.e4:8.1@κροκόπεπλος</p>
             </div>
             <div n="comment">
-               <p>Comment</p>
+               <p>DIPLOMATIC TRANSCRIPTION</p>
             </div>
          </div>
 
