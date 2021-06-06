@@ -17,3 +17,9 @@ Book 8 begins on [folio 66 recto](http://www.homermultitext.org/ict2/?urn=urn:ci
     - *metrical summaries*: `urn:cts:greekLit:tlg7000.tlg001.e4:`
 - **MS pages**: collection `urn:cite2:hmt:e4pages.v1:` with identifiers like `1r` identifying a single *page*
 - **images**: collection `urn:cite2:hmt:e4img.2017a:` with identifiers like `e4_553`.
+
+
+## Previous publications
+
+Partially published in Erbse.
+
